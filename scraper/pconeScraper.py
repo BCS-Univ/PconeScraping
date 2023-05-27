@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from scraper.common.utils import Utils
 
 class PconeScraper():
+    '''Main scraper class for pcone.com.tw
+    '''
     def __init__(self, url: str) -> None:
         self.url = url
         self.data = []
@@ -10,6 +12,11 @@ class PconeScraper():
         self.src = requests.get(self.url, headers=self.header)
 
     def getProductsList(self) -> list:
+        '''Get all products url from the page
+
+        Returns:
+            list: list of products url
+        '''
         try:
             page = BeautifulSoup(self.src.text, "html.parser")
             products = page.find_all('a', class_='product-list-item')
@@ -19,6 +26,14 @@ class PconeScraper():
             return None
 
     def getProductsInfo(self, product_url: str) -> dict:
+        '''Get product info from the product url
+
+        Args:
+            product_url (str): one of the product url
+
+        Returns:
+            dict: raw product info
+        '''
         try:
             src = requests.get(product_url, headers=self.header, verify=False)
             productPage = BeautifulSoup(src.text, 'html.parser')
@@ -37,6 +52,8 @@ class PconeScraper():
             return None
 
     def run(self) -> None:
+        '''Main function to run the scraper
+        '''
         utils = Utils()
         productsUrlList = self.getProductsList()
         for product_url in productsUrlList:

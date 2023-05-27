@@ -1,43 +1,95 @@
 import re
 
 class Utils:
+    '''Utils class for processing data
+    '''
+
     def process_shop_info(self, shop_info: list) -> tuple:
+        '''Extract the text of every line of the raw html
+
+        Args:
+            shop_info (list): list of shop info
+
+        Returns:
+            tuple: tuple of shop info
+        '''
         try:
             return tuple(info.text for info in shop_info)
         except Exception as e:
-            print(f"在處理店家資訊時發生錯誤: {e}")
+            print(f"Error occurred while processing shop info: {e}")
             return ()
 
     def process_product_money(self, product_money: str) -> int:
+        '''Extract the numerical value from the product money string
+
+        Args:
+            product_money (str): product money string
+
+        Returns:
+            int: processed product money
+        '''
         try:
             return int(product_money.split('$')[1])
         except Exception as e:
-            print(f"在處理商品價格{product_money}時發生錯誤: {e}")
+            print(f"Error occurred while processing product money {product_money}: {e}")
             return None
 
     def process_product_score(self, product_score: str) -> str:
+        '''Extract the score from the product score string
+
+        Args:
+            product_score (str): product score string
+
+        Returns:
+            str: processed product score
+        '''
         try:
             return product_score.split('(')[0]
         except Exception as e:
-            print(f"在處理商品評分{product_score}時發生錯誤: {e}")
+            print(f"Error occurred while processing product score {product_score}: {e}")
             return None
 
     def calculate_discount(self, product_money: int, yuan: int) -> int:
+        '''Calculate the discount percentage
+
+        Args:
+            product_money (int): product money value
+            yuan (int): yuan value
+
+        Returns:
+            int: discount percentage
+        '''
         try:
             return int(product_money / yuan * 100)
         except Exception as e:
-            print(f"在計算商品折數時發生錯誤: {e}")
+            print(f"Error occurred while calculating discount: {e}")
             return None
 
     def get_buy_count(self, buy_info: str) -> str:
+        '''Get the amount of people who bought the product
+
+        Args:
+            buy_info (str): buy info string
+
+        Returns:
+            str: the number of people
+        '''
         try:
             buy = re.findall(r"\d+.?\d*", buy_info)
             return buy[2] if len(buy) > 2 else '0'
         except Exception as e:
-            print(f"在處理購買人數{buy_info}時發生錯誤: {e}")
+            print(f"Error occurred while processing buy count {buy_info}: {e}")
             return '0'
 
     def runAll(self, product_info: dict) -> None:
+        '''Process all the product information and return the result as a list
+
+        Args:
+            product_info (dict): dictionary containing the product information
+
+        Returns:
+            None
+        '''
         shop_name = product_info['shop_name']
         product_name = product_info['product_name']
 

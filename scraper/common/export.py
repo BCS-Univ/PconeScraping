@@ -1,6 +1,12 @@
 import csv
 
 def export_csv(data: list, filePath: str) -> None: 
+    '''Dump the data into a csv file
+
+    Args:
+        data (list): all extracted data
+        filePath (str): the path of the csv file
+    '''
     try: 
         with open(filePath, 'w', newline='', encoding='utf-8-sig') as f: 
             writer = csv.writer(f) 
