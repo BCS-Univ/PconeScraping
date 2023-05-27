@@ -20,7 +20,7 @@ class PconeScraper():
         try:
             page = BeautifulSoup(self.src.text, "html.parser")
             products = page.find_all('a', class_='product-list-item')
-            return ['https://www.pcone.com.tw/' + products[i].get('href') for i in range(len(products) // 8)]
+            return ['https://www.pcone.com.tw/' + products[i].get('href') for i in range(len(products) // 8)]       #extract 25 links(200 divided by 8)
         except Exception as e:
             print('Error during getProductsList(): ', e)
             return None
