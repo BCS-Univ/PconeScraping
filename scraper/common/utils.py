@@ -4,7 +4,7 @@ class Utils:
     '''Utils class for processing data
     '''
 
-    def process_shop_info(self, shop_info: list) -> tuple:
+    def _process_shop_info(self, shop_info: list) -> tuple:
         '''Extract the text of every line of the raw html
 
         Args:
@@ -19,7 +19,7 @@ class Utils:
             print(f"Error occurred while processing shop info: {e}")
             return ()
 
-    def process_product_money(self, product_money: str) -> int:
+    def _process_product_money(self, product_money: str) -> int:
         '''Extract the numerical value from the product money string
 
         Args:
@@ -34,7 +34,7 @@ class Utils:
             print(f"Error occurred while processing product money {product_money}: {e}")
             return None
 
-    def process_product_score(self, product_score: str) -> str:
+    def _process_product_score(self, product_score: str) -> str:
         '''Extract the score from the product score string
 
         Args:
@@ -49,7 +49,7 @@ class Utils:
             print(f"Error occurred while processing product score {product_score}: {e}")
             return None
 
-    def calculate_discount(self, product_money: int, yuan: int) -> int:
+    def _calculate_discount(self, product_money: int, yuan: int) -> int:
         '''Calculate the discount percentage
 
         Args:
@@ -65,7 +65,7 @@ class Utils:
             print(f"Error occurred while calculating discount: {e}")
             return None
 
-    def get_buy_count(self, buy_info: str) -> str:
+    def _get_buy_count(self, buy_info: str) -> str:
         '''Get the amount of people who bought the product
 
         Args:
@@ -93,11 +93,11 @@ class Utils:
         shop_name = product_info['shop_name']
         product_name = product_info['product_name']
 
-        shop_q, shop_s, shop_t, shop_r = self.process_shop_info(product_info['shop_info'])
-        product_money = self.process_product_money(product_info['product_money'])
-        product_score = self.process_product_score(product_info['product_score'])
+        shop_q, shop_s, shop_t, shop_r = self._process_shop_info(product_info['shop_info'])
+        product_money = self._process_product_money(product_info['product_money'])
+        product_score = self._process_product_score(product_info['product_score'])
         yuan = product_money
 
-        zhe = self.calculate_discount(product_money, yuan)
-        buy_count = self.get_buy_count(product_info['buy_info'])
+        zhe = self._calculate_discount(product_money, yuan)
+        buy_count = self._get_buy_count(product_info['buy_info'])
         return [shop_name, product_name, shop_q, shop_s, shop_t, shop_r, product_money, zhe, product_score, buy_count]
