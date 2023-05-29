@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from scraper.common.utils import Utils
+import fake_useragent
 
 class PconeScraper():
     '''Main scraper class for pcone.com.tw
@@ -8,7 +9,7 @@ class PconeScraper():
     def __init__(self, url: str) -> None:
         self.url = url
         self.data = []
-        self.header = {'content-type': 'text/plain;charset=UTF-8','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
+        self.header = {'content-type': 'text/plain;charset=UTF-8','user-agent': fake_useragent.UserAgent().random}
         self.src = requests.get(self.url, headers=self.header)
 
     def getProductsList(self) -> list:
